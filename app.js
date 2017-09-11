@@ -16,7 +16,7 @@ var campgroundRoutes = require("./routes/campgrounds")
 var authRoutes = require("./routes/index")
     
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASEURL, {useMongoClient: true});
+mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/yelp_camp", {useMongoClient: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -24,7 +24,7 @@ app.use(methodOverride("_method"));
 app.use(flash());
 
 // seedDb();
-
+console.log(process.env.DATABASEURL);
 // PASSPORT CONFIG
 app.use(require("express-session")({
     secret:"boom boom boom shake the room",
